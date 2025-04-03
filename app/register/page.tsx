@@ -108,7 +108,7 @@ export default function Register() {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">U-CAN Academy Free Registration</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-8 text-center">U-CAN Academy Registration Form</h1>
 
         {/* Basic Information */}
         <div className="mb-8">

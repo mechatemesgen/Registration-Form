@@ -12,6 +12,7 @@ export default function Dashboard() {
   const [user, setUser] = useState<any>(null)
   const [courseLinks, setCourseLinks] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     const checkSession = async () => {
@@ -68,7 +69,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Student Dashboard</h1>
+          <h1 className="text-2xl font-bold">Student Dashboard</h1>
           <Button variant="outline" onClick={handleLogout}>
             <LogOut className="h-4 w-4 mr-2" />
             Logout
@@ -148,33 +149,39 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </div>
-
         <Card className="mt-6">
           <CardHeader>
             <CardTitle>Invitation Link</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="mb-4">Share this link with your friends to invite them to join U-CAN Academy:</p>
-            <div className="flex items-center space-x-2">
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
               <input
-                type="text"
-                readOnly
-                value={`${typeof window !== "undefined" ? window.location.origin : ""}/register?ref=${user?.application_number}`}
-                className="flex-1 p-2 border rounded-md bg-gray-50"
+          type="text"
+          readOnly
+          value={`${typeof window !== "undefined" ? window.location.origin : ""}/register?ref=${user?.application_number}`}
+          className="flex-1 p-2 border rounded-md bg-gray-50"
               />
               <Button
-                onClick={() => {
-                  navigator.clipboard.writeText(
-                    `${typeof window !== "undefined" ? window.location.origin : ""}/register?ref=${user?.application_number}`,
-                  )
-                }}
+          className="w-full sm:w-auto"
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `${typeof window !== "undefined" ? window.location.origin : ""}/register?ref=${user?.application_number}`,
+            )
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+          }}
               >
-                Copy
+          {copied ? "Copied!" : "Copy"}
               </Button>
             </div>
           </CardContent>
         </Card>
+
       </div>
+       <footer className="mt-8 text-center text-gray-500 text-sm">
+          &copy; {new Date().getFullYear()} U-CAN Academy™
+        </footer>
     </div>
   )
 }
